@@ -14,8 +14,8 @@ public class BasicPlotting  {
 		double[][] sensorData = raw.getRows(1, raw.getNumRows() - 1);
 		double[] rawData = getMagnitudes(sensorData);
 		double[] smoothedData = addNoiseSmoothing(raw.getCol(0), raw.getRows(1, raw.getNumRows() - 1));
-		double[] adaptiveThresholdData = getAdaptiveThreshold(rawData, WINDOW_LENGTH);
-		double[] smoothedAdaptiveThresholdData = getAdaptiveThreshold(smoothedData, WINDOW_LENGTH);
+		double[] adaptiveThresholdData = getAdaptiveThreshold2(rawData, WINDOW_LENGTH);
+		double[] smoothedAdaptiveThresholdData = getAdaptiveThreshold2(smoothedData, WINDOW_LENGTH);
 		double[] staticThreshold = getStaticThreshold(rawData);
 		Plot2DPanel plot = new Plot2DPanel();
 		// add a line plot to the PlotPanel
@@ -122,7 +122,7 @@ public class BasicPlotting  {
 		return thresholds[index];
 	}
 
-	public static double getThresholdsForLeftInterval(int index, int windowLength, double[] arr, double[] thresholds) {
+	public static double getThresholdsForCloseToLeftInterval(int index, int windowLength, double[] arr, double[] thresholds) {
 		double meanForWindow = getMeanForAdaptiveThreshold(0, index + windowLength, arr);
 		double standardDeviationForWindow = getStandardDeviationForAdaptiveThreshold(arr, meanForWindow, 0,
 				index + windowLength);
@@ -130,14 +130,13 @@ public class BasicPlotting  {
 		return thresholds[index];
 	}
 
-	public static double getThresholdsForRightInterval(int index, int windowLength, double[] arr, double[] thresholds) {
+	public static double getThresholdsForCloseToRightInterval(int index, int windowLength, double[] arr, double[] thresholds) {
 
-		double meanForWindow = getMeanForAdaptiveThreshold(0, index + windowLength, arr);
-		double standardDeviationForWindow = getStandardDeviationForAdaptiveThreshold(arr, meanForWindow, 0,
-				index + windowLength);
+		double meanForWindow = getMeanForAdaptiveThreshold(index - windowLength, arr.length, arr);
+		double standardDeviationForWindow = getStandardDeviationForAdaptiveThreshold(arr, meanForWindow,
+				index - windowLength, arr.length);
 		thresholds[index] = (meanForWindow + standardDeviationForWindow);
 		return thresholds[index];
-
 	}
 
 	public static double[] getAdaptiveThreshold2(double[] arr, int windowLength) {
@@ -158,10 +157,10 @@ public class BasicPlotting  {
 				if (i - windowLength >= 0) {
 					thresholds[i] = getThresholdForWithinIntervalOfLeftAndRightBoundary(i, windowLength, arr, thresholds);
 				} else {
-					thresholds[i] = getThresholdsForLeftInterval(i, windowLength, arr, thresholds);
+					thresholds[i] = getThresholdsForCloseToLeftInterval(i, windowLength, arr, thresholds);
 				}
 			} else {
-				thresholds[i] = getThresholdsForRightInterval(i, windowLength, arr, thresholds);
+				thresholds[i] = getThresholdsForCloseToRightInterval(i, windowLength, arr, thresholds);
 			}
 
 		}
