@@ -35,6 +35,14 @@ public class BasicPlotting {
 		frame.setVisible(true);
 	}
 
+	/***
+	 * Returns a static threshold calculated by adding the mean and standard deviation of the data
+	 * @param arr
+	 *            array of times corresponding to each resultant magnitude from
+	 *            the three acceleration components (x,y,z) from sensorData
+	 * @return double 1D array of threshold values
+	 */
+
 	public static double[] getStaticThreshold(double[] arr) {
 		double[] thresholds = new double[arr.length];
 		double mean = getMean(arr);
@@ -49,9 +57,10 @@ public class BasicPlotting {
 
 	/***
 	 * Counts the number of steps with an adaptive threshold after noise
-	 * smoothing the data A step is counted if the resultant of all 3 components
-	 * of acceleration from sensorData is above the adaptive threshold for that
-	 * point and its magnitude is greater than its two adjacent points
+	 * smoothing the data. A step is counted if the resultant of all 3
+	 * components of acceleration from sensorData is above the adaptive
+	 * threshold for that point and its magnitude is greater than its two
+	 * adjacent points
 	 * 
 	 * @param arr
 	 *            array of times corresponding to each resultant magnitude from
