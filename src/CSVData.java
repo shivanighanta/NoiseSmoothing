@@ -1,268 +1,4 @@
-//import java.io.File;
-//import java.io.IOException;
-//import java.util.Scanner;
-//
-///***
-// * 
-// * @author shivanighanta
-// *
-// */
-//public class CSVData {
-//	private double[][] data;
-//	private String[] columnNames;
-//	private String filePathToCSV;
-//	private int numRows;
-//
-//	public CSVData(String[] lines, String[] columnNames) {
-//		// number of data points
-//		this.numRows = lines.length;
-//		int numColumns = columnNames.length;
-//		// create storage for column names
-//		this.columnNames = columnNames;
-//		// create storage for data
-//		this.data = new double[numRows][numColumns];
-//		for (int i = 0; i < lines.length; i++) {
-//			String line = lines[i];
-//			String[] coords = line.split(",");
-//			for (int j = 0; j < numColumns; j++) {
-//				if (coords[j].endsWith("#"))
-//					coords[j] = coords[j].substring(0, coords[j].length() - 1);
-//				double val = Double.parseDouble(coords[j]);
-//				data[i][j] = val;
-//				System.out.print(val + " ");
-//			}
-//			System.out.println();
-//		}
-//	}
-//
-//	private static String readFileAsString(String filepath) {
-//		StringBuilder output = new StringBuilder();
-//		try (Scanner scanner = new Scanner(new File(filepath))) {
-//			while (scanner.hasNext()) {
-//				String line = scanner.nextLine();
-//				output.append(line + System.getProperty("line.separator"));
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return output.toString();
-//	}
-//
-//	/***
-//	 * returns a new CSVData object for a file ignoring the lines at the top It
-//	 * uses the first row as the column names. all other data is stored in 2D
-//	 * array
-//	 * 
-//	 * @param filepath
-//	 *            name of the CSV file
-//	 * @param numLinesIgnore
-//	 *            the number of lines to ignore from the top of the file
-//	 * @param columnNames
-//	 *            the names/descriptions of each column of values
-//	 * @return CSVData
-//	 */
-//	
-//
-//	public static CSVData readCSVFile(String filepath, int numLinesIgnore, String[] columnNames) {
-//		String dataString = readFileAsString(filepath);
-//		int i1 = 0;
-//		for(int newLine = 0; newLine < numLinesIgnore; i1++)
-//			if(dataString.charAt(i1) == '\n') newLine++;
-//		dataString = dataString.substring(i1);
-//		String[] lines = dataString.split("\n");
-//		
-//		return new CSVData(lines, columnNames);
-//	}
-//
-//	/***
-//	 * returns a new CSVData object for a file ignoring the lines at the top It
-//	 * uses the first row as the column names. all other data is stored in 2D
-//	 * array
-//	 * 
-//	 * @param filepath to the CSV file
-//	 * @param numLinesIgnore
-//	 *            the number of lines to ignore from the top of the file
-//	 * @return CSVDATA
-//	 */
-//	public static CSVData readCSVFile(String filepath, int numLinesIgnore) {
-//		String dataString = readFileAsString(filepath);
-//		int i1 = 0, i2;
-//		for(int newLine = 0; newLine < numLinesIgnore; i1++)
-//			if(dataString.charAt(i1) == '\n') newLine++;
-//		for(i2 = i1; dataString.charAt(i2) != '\n'; i2++);
-//		String[] columnNames = dataString.substring(i1, i2).split(", ");
-//		dataString = dataString.substring(i2+1);
-//		String[] lines = dataString.split("\n");
-//		//display(lines);
-//		return new CSVData(lines, columnNames);
-//	}
-//	
-//	public static void display(String[] arr){
-//		for(int i = 0; i < arr.length; i++){
-//			System.out.println(arr[i]);
-//		}
-//		System.out.println("done");
-//	}
-//
-//	/***
-//	 * returns the individual row out of the array
-//	 * 
-//	 * @param rowIndex
-//	 *            index of the row
-//	 * @return the array of the rows
-//	 */
-//
-//	public double[] getRow(int rowIndex) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns the individual col out of the array
-//	 * 
-//	 * @param columnIndex
-//	 *            index of the col
-//	 * @return returns the array of the columns
-//	 */
-//
-//	public double[] getColumn(int columnIndex) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns the individual col out of the array
-//	 * 
-//	 * @param name
-//	 *            the name of the col
-//	 * @return returns the name of the columns
-//	 */
-//
-//	public double[] getColumn(String name) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns multiple rows out of the data array
-//	 * 
-//	 * @param startIndex
-//	 *            the index you are starting at
-//	 * @param endIndex
-//	 *            the index you are ending at
-//	 * @return returns the array of the rows
-//	 */
-//
-//	public double[][] getRows(int startIndex, int endIndex) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns multiple rows out of the data array
-//	 * 
-//	 * @param rowIndexes
-//	 *            the array of the indexes of the row
-//	 * @return returns the array of the rows
-//	 */
-//
-//	public double[][] getRows(int[] rowIndexes) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns the multiple columns out of the data array
-//	 * 
-//	 * @param columnIndexes
-//	 *            the array of the indexes of the columns
-//	 * @return returns the array of the columns
-//	 */
-//
-//	public double[][] getColumns(int[] columnIndexes) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns the multiple rows out of the data array
-//	 * 
-//	 * @param startIndex
-//	 *            the index you are starting at
-//	 * @param endIndex
-//	 *            the index you are ending at
-//	 * @return returns the array of the columns
-//	 */
-//	public double[][] getColumns(int startIndex, int endIndex) {
-//		return null;
-//	}
-//
-//	/***
-//	 * returns the multiple columns out of the data array
-//	 *
-//	 * @param colNames
-//	 *            the name of the column
-//	 * @return returns the array of the columns
-//	 */
-//
-//	public double[][] getColumns(String colNames) {
-//		return null;
-//	}
-//
-//	/***
-//	 * sets the value of the the element in the array
-//	 * 
-//	 * @param rowIndex
-//	 *            the index of the row
-//	 * @param colIndex
-//	 *            the index of the column
-//	 * @param newValue
-//	 *            the value you want to set the element to
-//	 */
-//	public void setValue(int rowIndex, int colIndex, double newValue) {
-//
-//	}
-//
-//	/***
-//	 * sets the values of the rows
-//	 * 
-//	 * @param values
-//	 *            the array of the row values
-//	 */
-//
-//	public void setRow(double[] values) {
-//
-//	}
-//
-//	/***
-//	 * sets the values of the columns
-//	 * 
-//	 * @param values
-//	 *            the array of the col values
-//	 */
-//
-//	public void setColumn(double[] values) {
-//
-//	}
-//
-//	/***
-//	 * gets the names of the columns
-//	 * 
-//	 * @return returns the array of the column names
-//	 */
-//
-//	public static String[] getColumnTitles(String line) {
-//		return line.split(",");
-//	}
-//
-//	/***
-//	 * saves the current state of the object back into a CSV
-//	 * 
-//	 * @param filename
-//	 *            the name of the file
-//	 */
-//	public void saveToFile(String filename) {
-//
-//	}
-//	
-//	public String toString(){
-//		return data.toString();
-//	}
-//}
+
 
 import java.io.File;
 import java.io.IOException;
@@ -272,9 +8,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * A class to read/write numerical CSV files and allow easy access to values
+ * A class to read and write numerical CSV files and give access to values
  * 
- * @author 
+ * @author shivanighanta
  *
  */
 public class CSVData {
@@ -325,44 +61,43 @@ public class CSVData {
 	}
 
 	/***
-	 * Returns a new CSV Data object for the file, ignoring lines at the top.
+	 * Returns a new CSV Data object for the file and ignores lines at the top.
 	 * Input String array gives the column names.
 	 * 
 	 * @param filename
 	 *            the file to read
 	 * @param numLinesToIgnore
-	 *            number of lines at the top to ignore
+	 *            number of lines to ignore
 	 * @param columnNames
 	 *            names of the columns
-	 * @return a CSVData object for that file
+	 * @return a CSVData object for the file
 	 */
 	public static CSVData readCSVFile(String filename, int numLinesToIgnore, String[] columnNames) {
 		return new CSVData(filename, columnNames, numLinesToIgnore);
 	}
 
 	/***
-	 * Returns a new CSV Data object for the file, ignoring lines at the top. It
-	 * uses the first row as the column names. All other data is stored as
-	 * doubles.
+	 * Returns a new CSV Data object for the file and ignores lines at the top. It
+	 * uses the first row as the column names. 
 	 * 
 	 * @param filename
 	 *            the file to read
 	 * @param numLinesToIgnore
 	 *            number of lines at the top to ignore
-	 * @return a CSVData object for that file
+	 * @return a CSVData object 
 	 */
 	public static CSVData readCSVFile(String filename, int numLinesToIgnore) {
 		return null;
 	}
 
 	/**
-	 * Returns a 1d array representing a column of the 2D array arr.
+	 * Returns an array a column of the 2D array arr.
 	 * 
 	 * @param arr
-	 *            the 2D array to extract a column from
+	 *            the 2D array to get a column from
 	 * @param column
-	 *            the index of the column to extract
-	 * @return a 1D array that's a copy of the row at index column.
+	 *            the index of the column to get
+	 * @return a 1D array that is a copy of the row at index column.
 	 */
 	public double[] getCol(int column) {
 		double[] columnValues = new double[this.data.length];
@@ -374,13 +109,13 @@ public class CSVData {
 	}
 
 	/**
-	 * Returns a 1d array representing a row of the 2D array arr.
+	 * Returns an array representing a row of the 2D array arr.
 	 * 
 	 * @param arr
 	 *            the 2D array to extract a row from
 	 * @param row
 	 *            the index of the row to extract
-	 * @return a 1D array that's a copy of the row at index row.
+	 * @return an array that's a copy of the row at index row.
 	 */
 	public double[] getRow(int row) {
 		double[] rowValues = new double[data[0].length];
@@ -437,20 +172,9 @@ public class CSVData {
 		return rows;
 	}
 
-	/**
-	 * Returns a 2d array in String
-	 * 
-	 * @param arr
-	 *            the array to convert to String
-	 * @return String array
-	 */
-	// public static ArrayList<String> toString(double[][] arr){
-	// ArrayList<String> values=new ArrayList<String>();
-	// for(int rowCounter=0; rowCounter<arr.length; rowCounter++){
-	// values.add(Arrays.toString(this.getRow(rowCounter)));
-	// }
-	// return values;
-	// }
+	
+	
+	
 	/**
 	 * Adds a row of values in a 1d double array to 2d double array
 	 * 

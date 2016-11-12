@@ -13,9 +13,9 @@ public class NoiseSmoothing {
 	
 	
 	/***
-	 * Returns a new array whose elements are each an average of n adjacent elements of array
-	 * @param array the sample signal values (to be averaged)
-	 * @return double[] an array, each of whose elements is the average of n adjacent values from array
+	 * Returns a new array whose elements are an average of n adjacent elements of array
+	 * @param array the array to average
+	 * @return double[] an array whose elements is the average of n points of the input array
 	 */
 	public static double[] generalRunningAverage(double[] array, int n) {
 		double[] average = new double[array.length-(n-1)];
