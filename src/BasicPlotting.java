@@ -10,7 +10,7 @@ public class BasicPlotting  {
 
 	public static void main(String[] args) {
 		String[] columnNames = { "time (ms)", "accel-x", "accel-y", "accel-z" };
-		CSVData raw = new CSVData("data/StepStair2.csv", columnNames, 1);
+		CSVData raw = new CSVData("data/26Stair.csv", columnNames, 1);
 		double[][] sensorData = raw.getRows(1, raw.getNumRows() - 1);
 		double[] rawData = getMagnitudes(sensorData);
 		double[] smoothedData = addNoiseSmoothing(raw.getCol(0), raw.getRows(1, raw.getNumRows() - 1));
@@ -21,10 +21,11 @@ public class BasicPlotting  {
 		// add a line plot to the PlotPanel
 		plot.addLinePlot("Raw Data", rawData); // blue
 		plot.addLinePlot("Smoothed Data", smoothedData); // red
-		plot.addLinePlot("Adaptive Threshold", adaptiveThresholdData); // green
-		plot.addLinePlot("Smoothed Threshold", smoothedAdaptiveThresholdData); // yellow
-		plot.addLinePlot("Static Threshold", staticThreshold ); // orange
-
+		plot.addLinePlot("Static Threshold", staticThreshold ); // green
+		//plot.addLinePlot("Smoothed Threshold", smoothedAdaptiveThresholdData); // yellow
+		plot.addLinePlot("Adaptive Threshold", adaptiveThresholdData); // yellow
+		plot.addLinePlot("Smoothed Threshold", smoothedAdaptiveThresholdData); // orange
+		
 		System.out.println("Revised: " + stepCounterRevised(raw.getCol(1), raw.getRows(1, raw.getNumRows() - 1), 10));
 		System.out.println("Original: " + stepCounter(raw.getCol(1), raw.getRows(1, raw.getNumRows() - 1)));
 		
